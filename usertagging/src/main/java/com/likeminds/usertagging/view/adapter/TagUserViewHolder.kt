@@ -27,14 +27,12 @@ internal class TagUserViewHolder(
 
         //set description and hide in case of description is empty
         binding.tvDescription.apply {
-            isVisible = userAndGroup.description.isNotEmpty()
+            isVisible = !userAndGroup.description.isNullOrEmpty()
             text = userAndGroup.description
         }
 
         Glide.with(binding.ivMemberImage)
             .load(userAndGroup.imageUrl)
-            .placeholder(userAndGroup.placeholder)
-            .error(userAndGroup.placeholder)
             .into(binding.ivMemberImage)
         binding.executePendingBindings()
     }

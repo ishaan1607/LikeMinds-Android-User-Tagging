@@ -3,7 +3,7 @@ package com.likeminds.usertagging.model
 import android.widget.EditText
 import androidx.annotation.FloatRange
 
-class UserTaggingConfig(
+class UserTaggingConfig private constructor(
     val editText: EditText,
     val darkMode: Boolean = false,
     @FloatRange(from = 0.0, to = 1.0) val maxHeightInPercentage: Float = 0.4f,

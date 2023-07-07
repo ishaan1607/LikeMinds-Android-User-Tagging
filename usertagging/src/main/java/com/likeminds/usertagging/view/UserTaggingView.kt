@@ -139,15 +139,15 @@ class UserTaggingView(
         }
     }
 
-    private fun getMemberFromSelectedList(userUniqueId: String): TagUser? {
+    private fun getMemberFromSelectedList(id: Int): TagUser? {
         return selectedMembers.firstOrNull { member ->
-            member.userUniqueId == userUniqueId
+            member.id == id
         }
     }
 
-    private fun getMember(userUniqueId: String): TagUser? {
+    private fun getMember(id: Int): TagUser? {
         return communityMembersAndGroups.firstOrNull { member ->
-            member.userUniqueId == userUniqueId
+            member.id == id
         }
     }
 
@@ -156,7 +156,7 @@ class UserTaggingView(
             userTaggingViewListener?.onShow()
             val lastItem = communityMembersAndGroups.lastOrNull()
             mAdapter.setMembers(communityMembersAndGroups.map {
-                if (it.userUniqueId == lastItem?.userUniqueId) {
+                if (it.id == lastItem?.id) {
                     //if last item hide bottom line in item view
                     it.toBuilder().isLastItem(true).build()
                 } else {
@@ -176,8 +176,8 @@ class UserTaggingView(
 
     override fun onMemberRemoved(regex: String) {
         val memberRoute = UserTaggingDecoder.getRouteFromRegex(regex) ?: return
-        val userUniqueId = memberRoute.lastPathSegment ?: return
-        val member = getMemberFromSelectedList(userUniqueId)
+        val userId = memberRoute.lastPathSegment ?: return
+        val member = getMemberFromSelectedList(userId.toInt())
         if (member != null) {
             selectedMembers.remove(member)
             userTaggingViewListener?.onMemberRemoved(member)
@@ -189,17 +189,9 @@ class UserTaggingView(
     }
 
     override fun onMemberTagged(user: TagUser) {
-        val tagSpannableString = "@${user.name}"
-        val memberName = SpannableString(tagSpannableString)
+        val memberName = SpannableString(user.name)
 
-        //if id == 0, then it is a group tag
-        val regex = if (user.id == 0) {
-            //get route from object
-            user.tag
-        } else {
-            //create regex from name and id
-            "<<${user.name}|route://user_profile/${user.id}>>"
-        }
+        val regex = "<<${user.name}|route://user/${user.id}>>"
 
         //set span
         memberName.setSpan(
@@ -208,7 +200,7 @@ class UserTaggingView(
                 regex
             ), 0, memberName.length, 0
         )
-        val selectedMember = getMemberFromSelectedList(user.userUniqueId)
+        val selectedMember = getMemberFromSelectedList(user.id)
         if (selectedMember == null) {
             selectedMembers.add(user)
         }
@@ -226,8 +218,8 @@ class UserTaggingView(
         )
         val firstMember = UserTaggingDecoder.decodeAndReturnAllTaggedMembers(text).firstOrNull()
             ?: return null
-        val member = getMember(firstMember.first) ?: return null
-        if (getMemberFromSelectedList(member.userUniqueId) == null) {
+        val member = getMember(firstMember.first.toInt()) ?: return null
+        if (getMemberFromSelectedList(member.id) == null) {
             selectedMembers.add(member)
         }
         return member.name
