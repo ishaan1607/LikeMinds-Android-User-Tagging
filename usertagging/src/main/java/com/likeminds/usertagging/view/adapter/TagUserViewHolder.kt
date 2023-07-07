@@ -7,32 +7,30 @@ import com.likeminds.usertagging.databinding.ItemTagUserBinding
 import com.likeminds.usertagging.model.TagUser
 
 internal class TagUserViewHolder(
-    val binding: ItemTagUserBinding,
-    val darkMode: Boolean,
+    private val binding: ItemTagUserBinding,
     private val memberAdapterClickListener: TagUserAdapterClickListener
 ) : RecyclerView.ViewHolder(binding.root) {
 
     init {
         binding.root.setOnClickListener {
-            val member = binding.member ?: return@setOnClickListener
-            memberAdapterClickListener.onMemberTagged(member)
+            val user = binding.tagUser ?: return@setOnClickListener
+            memberAdapterClickListener.onUserTagged(user)
         }
     }
 
     @JvmSynthetic
-    internal fun bind(userAndGroup: TagUser) {
-        binding.member = userAndGroup
-        binding.hideBottomLine = userAndGroup.isLastItem && !darkMode
-        binding.darkMode = darkMode
+    internal fun bind(user: TagUser) {
+        binding.tagUser = user
+        binding.hideBottomLine = user.isLastItem
 
         //set description and hide in case of description is empty
         binding.tvDescription.apply {
-            isVisible = !userAndGroup.description.isNullOrEmpty()
-            text = userAndGroup.description
+            isVisible = !user.description.isNullOrEmpty()
+            text = user.description
         }
 
         Glide.with(binding.ivMemberImage)
-            .load(userAndGroup.imageUrl)
+            .load(user.imageUrl)
             .into(binding.ivMemberImage)
         binding.executePendingBindings()
     }

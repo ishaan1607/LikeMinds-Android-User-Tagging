@@ -8,22 +8,21 @@ import com.likeminds.usertagging.databinding.ItemTagUserBinding
 import com.likeminds.usertagging.model.TagUser
 
 internal class TagUserAdapter(
-    private val darkMode: Boolean,
     private val memberAdapterClickListener: TagUserAdapterClickListener
 ) : RecyclerView.Adapter<TagUserViewHolder>() {
 
-    private val members = ArrayList<TagUser>()
+    private val tagUsers = ArrayList<TagUser>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TagUserViewHolder {
         val binding = ItemTagUserBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return TagUserViewHolder(binding, darkMode, memberAdapterClickListener)
+        return TagUserViewHolder(binding, memberAdapterClickListener)
     }
 
     override fun onBindViewHolder(holder: TagUserViewHolder, position: Int) {
-        holder.bind(members[position])
+        holder.bind(tagUsers[position])
     }
 
-    override fun getItemCount() = members.size
+    override fun getItemCount() = tagUsers.size
 
     /**
      * Updates the member list in the recyclerview adapter
@@ -31,22 +30,22 @@ internal class TagUserAdapter(
     @SuppressLint("NotifyDataSetChanged")
     @JvmSynthetic
     internal fun setMembers(users: List<TagUser>) {
-        this.members.clear()
-        this.members.addAll(users)
+        this.tagUsers.clear()
+        this.tagUsers.addAll(users)
         notifyDataSetChanged()
     }
 
     @SuppressLint("NotifyDataSetChanged")
     @JvmSynthetic
     internal fun allMembers(users: List<TagUser>) {
-        this.members.addAll(users)
+        this.tagUsers.addAll(users)
         notifyDataSetChanged()
     }
 
     @SuppressLint("NotifyDataSetChanged")
     @JvmSynthetic
     internal fun clear() {
-        this.members.clear()
+        this.tagUsers.clear()
         notifyDataSetChanged()
     }
 }

@@ -4,11 +4,11 @@ import com.likeminds.usertagging.model.TagUser
 
 interface UserTaggingViewListener {
 
-    fun onMemberTagged(user: TagUser) {
+    fun onUserTagged(user: TagUser) {
         //when a member is tagged from list
     }
 
-    fun onMemberRemoved(user: TagUser) {
+    fun onUserRemoved(user: TagUser) {
         //when a tagged member is removed from the text
     }
 

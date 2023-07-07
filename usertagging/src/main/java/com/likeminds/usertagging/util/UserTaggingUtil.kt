@@ -8,34 +8,10 @@ import android.text.Editable
 import android.util.DisplayMetrics
 import android.view.WindowInsets
 import androidx.annotation.FloatRange
-import com.likeminds.usertagging.model.TagUser
-import com.likeminds.usertagging.view.UserTaggingView
 
 object UserTaggingUtil {
 
     const val PAGE_SIZE = 20
-
-    /**
-     * handles result and set result to [memberTagging] view as per [page]
-     * */
-    fun setMembersInView(
-        memberTagging: UserTaggingView,
-        result: Pair<Int, ArrayList<TagUser>>?
-    ) {
-        if (result != null) {
-            val page = result.first
-            val list = result.second
-            if (page == 1) {
-                //clear and set in adapter
-                memberTagging.setMembersAndGroup(list)
-            } else {
-                //add to the adapter
-                memberTagging.addMembers(list)
-            }
-        } else {
-            return
-        }
-    }
 
     private const val DEFAULT_MAX_HEIGHT = 300
 

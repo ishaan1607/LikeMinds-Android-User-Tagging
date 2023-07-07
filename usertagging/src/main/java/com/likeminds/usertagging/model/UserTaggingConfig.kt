@@ -5,23 +5,16 @@ import androidx.annotation.FloatRange
 
 class UserTaggingConfig private constructor(
     val editText: EditText,
-    val darkMode: Boolean = false,
     @FloatRange(from = 0.0, to = 1.0) val maxHeightInPercentage: Float = 0.4f,
     val color: Int,
 ) {
-    data class Builder(
-        private var editText: EditText? = null,
-        private var darkMode: Boolean = false,
+    class Builder {
+        private lateinit var edittext: EditText
         @FloatRange(from = 0.0, to = 1.0)
-        private var maxHeightInPercentage: Float = 0.4f,
-        private var color: Int = -1,
-    ) {
+        private var maxHeightInPercentage: Float = 0.4f
+        private var color: Int = -1
 
-        fun editText(editText: EditText?) = apply { this.editText = editText }
-
-        fun darkMode(darkMode: Boolean) = apply {
-            this.darkMode = darkMode
-        }
+        fun editText(editText: EditText) = apply { this.edittext = editText }
 
         fun maxHeightInPercentage(
             @FloatRange(from = 0.0, to = 1.0)
@@ -35,19 +28,16 @@ class UserTaggingConfig private constructor(
         }
 
         fun build(): UserTaggingConfig {
-            if (editText == null) {
+            if (this::edittext.isInitialized) {
                 throw Error("editText is a required attribute")
             }
-            return UserTaggingConfig(editText!!, darkMode, maxHeightInPercentage, color)
+            return UserTaggingConfig(edittext, maxHeightInPercentage, color)
         }
     }
 
     fun toBuilder(): Builder {
-        return Builder(
-            editText,
-            darkMode,
-            maxHeightInPercentage,
-            color
-        )
+        return Builder().editText(editText)
+            .maxHeightInPercentage(maxHeightInPercentage)
+            .color(color)
     }
 }

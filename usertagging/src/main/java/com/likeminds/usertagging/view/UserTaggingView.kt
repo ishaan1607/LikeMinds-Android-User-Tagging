@@ -26,25 +26,18 @@ class UserTaggingView(
         true
     )
 
-    var taggingEnabled = true
-        set(value) {
-            field = value
-            enableTagging(value)
-        }
-
     private lateinit var mAdapter: TagUserAdapter
     private lateinit var userTaggingTextWatcher: UserTaggingTextWatcher
     private var userTaggingViewListener: UserTaggingViewListener? = null
     private lateinit var scrollListener: EndlessRecyclerScrollListener
 
-    //Community Members and groups to search
-    private val communityMembersAndGroups = mutableListOf<TagUser>()
+    private val tagUsers = mutableListOf<TagUser>()
 
     //contains searched text
     private var searchText: String = ""
 
     //Contains selected members
-    private val selectedMembers by lazy { mutableListOf<TagUser>() }
+    private val selectedUsers by lazy { mutableListOf<TagUser>() }
 
     private lateinit var config: UserTaggingConfig
 
@@ -73,11 +66,7 @@ class UserTaggingView(
         binding.recyclerView.layoutParams = lp
 
         //Set the theme
-        if (config.darkMode) {
-            binding.constraintLayout.setBackgroundResource(R.color.black_80)
-        } else {
-            binding.constraintLayout.setBackgroundResource(R.drawable.background_container)
-        }
+        binding.constraintLayout.setBackgroundResource(R.drawable.background_container)
     }
 
     fun reSetMaxHeight(px: Int) {
@@ -94,23 +83,15 @@ class UserTaggingView(
         this.userTaggingViewListener = userTaggingViewListener
     }
 
-    private fun enableTagging(value: Boolean) {
-        if (value) {
-            userTaggingTextWatcher.startObserving()
-        } else {
-            userTaggingTextWatcher.stopObserving()
-        }
-    }
-
     private fun initializeTextWatcher() {
-        userTaggingTextWatcher = UserTaggingTextWatcher(taggingEnabled, config.editText)
+        userTaggingTextWatcher = UserTaggingTextWatcher(config.editText)
         userTaggingTextWatcher.addTextWatcherListener(this)
         userTaggingTextWatcher.startObserving()
     }
 
     private fun initializeRecyclerView() {
         //create adapter
-        mAdapter = TagUserAdapter(config.darkMode, this)
+        mAdapter = TagUserAdapter(this)
 
         //create layout manager
         val linearLayoutManager = LinearLayoutManager(this.context)
@@ -140,22 +121,16 @@ class UserTaggingView(
     }
 
     private fun getMemberFromSelectedList(id: Int): TagUser? {
-        return selectedMembers.firstOrNull { member ->
-            member.id == id
-        }
-    }
-
-    private fun getMember(id: Int): TagUser? {
-        return communityMembersAndGroups.firstOrNull { member ->
+        return selectedUsers.firstOrNull { member ->
             member.id == id
         }
     }
 
     private fun showMemberTaggingList() {
-        if (communityMembersAndGroups.isNotEmpty()) {
+        if (tagUsers.isNotEmpty()) {
             userTaggingViewListener?.onShow()
-            val lastItem = communityMembersAndGroups.lastOrNull()
-            mAdapter.setMembers(communityMembersAndGroups.map {
+            val lastItem = tagUsers.lastOrNull()
+            mAdapter.setMembers(tagUsers.map {
                 if (it.id == lastItem?.id) {
                     //if last item hide bottom line in item view
                     it.toBuilder().isLastItem(true).build()
@@ -168,27 +143,27 @@ class UserTaggingView(
         }
     }
 
-    override fun onHitTaggingApi(text: String) {
+    override fun hitTaggingApi(text: String) {
         searchText = text.substring(1) //omit '@'
         scrollListener.resetData()
         userTaggingViewListener?.callApi(1, searchText)
     }
 
-    override fun onMemberRemoved(regex: String) {
+    override fun onUserTagRemoved(regex: String) {
         val memberRoute = UserTaggingDecoder.getRouteFromRegex(regex) ?: return
         val userId = memberRoute.lastPathSegment ?: return
         val member = getMemberFromSelectedList(userId.toInt())
         if (member != null) {
-            selectedMembers.remove(member)
-            userTaggingViewListener?.onMemberRemoved(member)
+            selectedUsers.remove(member)
+            userTaggingViewListener?.onUserRemoved(member)
         }
     }
 
-    override fun dismissMemberTagging() {
+    override fun hideSuggestionList() {
         hide()
     }
 
-    override fun onMemberTagged(user: TagUser) {
+    override fun onUserTagged(user: TagUser) {
         val memberName = SpannableString(user.name)
 
         val regex = "<<${user.name}|route://user/${user.id}>>"
@@ -202,27 +177,12 @@ class UserTaggingView(
         )
         val selectedMember = getMemberFromSelectedList(user.id)
         if (selectedMember == null) {
-            selectedMembers.add(user)
+            selectedUsers.add(user)
         }
         userTaggingTextWatcher.replaceEditText(memberName)
         userTaggingTextWatcher.resetGlobalPosition()
-        userTaggingViewListener?.onMemberTagged(user)
+        userTaggingViewListener?.onUserTagged(user)
         hide()
-    }
-
-    fun decodeFirstMemberAndAddToSelectedList(text: String?): String? {
-        UserTaggingDecoder.decode(
-            config.editText,
-            text,
-            config.color
-        )
-        val firstMember = UserTaggingDecoder.decodeAndReturnAllTaggedMembers(text).firstOrNull()
-            ?: return null
-        val member = getMember(firstMember.first.toInt()) ?: return null
-        if (getMemberFromSelectedList(member.id) == null) {
-            selectedMembers.add(member)
-        }
-        return member.name
     }
 
     fun replaceSelectedMembers(editable: Editable?): String {
@@ -248,21 +208,21 @@ class UserTaggingView(
     }
 
     fun setMembersAndGroup(usersAndGroups: ArrayList<TagUser>) {
-        communityMembersAndGroups.clear()
-        communityMembersAndGroups.addAll(usersAndGroups)
+        tagUsers.clear()
+        tagUsers.addAll(usersAndGroups)
         showMemberTaggingList()
     }
 
     fun addMembers(usersAndGroups: ArrayList<TagUser>) {
-        communityMembersAndGroups.addAll(usersAndGroups)
+        tagUsers.addAll(usersAndGroups)
         if (isShowing) {
             mAdapter.allMembers(usersAndGroups)
         }
     }
 
-    fun getTaggedMemberCount() = selectedMembers.size
+    fun getTaggedMemberCount() = selectedUsers.size
 
-    fun getTaggedMembers() = selectedMembers.toList()
+    fun getTaggedMembers() = selectedUsers.toList()
 
-    fun isMembersListEmpty() = communityMembersAndGroups.isEmpty()
+    fun isMembersListEmpty() = tagUsers.isEmpty()
 }

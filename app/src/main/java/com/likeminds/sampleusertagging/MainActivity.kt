@@ -92,7 +92,7 @@ class MainActivity : AppCompatActivity() {
                 .build()
         )
         userTaggingView.addListener(object : UserTaggingViewListener {
-            override fun onMemberTagged(user: TagUser) {
+            override fun onUserTagged(user: TagUser) {
                 Log.d(
                     TAG, """
                     tagged user: 

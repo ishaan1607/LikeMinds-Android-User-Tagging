@@ -2,9 +2,9 @@ package com.likeminds.usertagging.util
 
 interface TextWatcherListener {
 
-    fun onHitTaggingApi(text: String)
+    fun hitTaggingApi(text: String)
 
-    fun onMemberRemoved(regex: String)
+    fun onUserTagRemoved(regex: String)
 
-    fun dismissMemberTagging()
+    fun hideSuggestionList()
 }

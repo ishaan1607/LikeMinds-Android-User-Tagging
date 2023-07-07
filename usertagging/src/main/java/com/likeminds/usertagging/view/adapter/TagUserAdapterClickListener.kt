@@ -4,5 +4,5 @@ import com.likeminds.usertagging.model.TagUser
 
 internal interface TagUserAdapterClickListener {
 
-    fun onMemberTagged(user: TagUser)
+    fun onUserTagged(user: TagUser)
 }

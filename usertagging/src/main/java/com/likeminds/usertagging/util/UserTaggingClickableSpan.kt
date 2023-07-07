@@ -7,8 +7,8 @@ import android.view.View
 class UserTaggingClickableSpan(
     val color: Int,
     val regex: String,
-    val underLineText: Boolean = false,
-    val userTaggingClickableSpanListener: UserTaggingClickableSpanListener? = null
+    private val underLineText: Boolean = false,
+    private val userTaggingClickableSpanListener: UserTaggingClickableSpanListener? = null
 ) : ClickableSpan() {
 
     override fun updateDrawState(textPaint: TextPaint) {
@@ -23,9 +23,5 @@ class UserTaggingClickableSpan(
 
     override fun onClick(widget: View) {
         userTaggingClickableSpanListener?.onClick(regex)
-    }
-
-    fun getMemberId(): String? {
-        return UserTaggingDecoder.getMemberIdFromRegex(regex)
     }
 }
