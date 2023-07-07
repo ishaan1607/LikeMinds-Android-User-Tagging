@@ -1,4 +1,6 @@
 <resources>
     <string name="app_name">LikeMinds-Android-User-Tagging</string>
     <string name="start_typing">Start Typing...</string>
+    <string name="actual_string">Actual String</string>
+    <string name="displayed_string">Displayed String</string>
 </resources>

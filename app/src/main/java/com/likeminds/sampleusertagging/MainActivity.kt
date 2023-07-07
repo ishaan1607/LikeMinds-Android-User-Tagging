@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.likeminds.sampleusertagging.databinding.ActivityMainBinding
+import com.likeminds.usertagging.UserTagging
 import com.likeminds.usertagging.model.TagUser
 import com.likeminds.usertagging.model.UserTaggingConfig
 import com.likeminds.usertagging.util.UserTaggingViewListener
@@ -83,15 +84,7 @@ class MainActivity : AppCompatActivity() {
      * also sets listener to the [userTaggingView]
      */
     private fun initMemberTaggingView() {
-        userTaggingView = binding.userTaggingView
-        userTaggingView.initialize(
-            UserTaggingConfig.Builder()
-                .editText(binding.editTextSample)
-                .maxHeightInPercentage(0.4f)
-                .color(R.color.vivid_red)
-                .build()
-        )
-        userTaggingView.addListener(object : UserTaggingViewListener {
+        val listener = object : UserTaggingViewListener {
             override fun onUserTagged(user: TagUser) {
                 Log.d(
                     TAG, """
@@ -105,6 +98,12 @@ class MainActivity : AppCompatActivity() {
             override fun callApi(page: Int, searchName: String) {
                 userTaggingView.setMembersAndGroup(listOfUsers)
             }
-        })
+        }
+        val config = UserTaggingConfig.Builder()
+            .editText(binding.editTextSample)
+            .maxHeightInPercentage(0.4f)
+            .color(R.color.vivid_red)
+            .build()
+        UserTagging.initialize(binding.userTaggingView, config, listener)
     }
 }
