@@ -26,7 +26,7 @@ object UserTaggingDecoder {
             val tag = value.substring(2, value.length - 2).split("\\|".toRegex())
             val memberName = SpannableString("@${tag[0]}")
             memberName.setSpan(
-                MemberTaggingClickableSpan(highlightColor, value),
+                UserTaggingClickableSpan(highlightColor, value),
                 0,
                 memberName.length,
                 Spannable.SPAN_EXCLUSIVE_EXCLUSIVE

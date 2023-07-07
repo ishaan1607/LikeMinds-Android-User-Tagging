@@ -203,7 +203,7 @@ class UserTaggingView(
 
         //set span
         memberName.setSpan(
-            MemberTaggingClickableSpan(
+            UserTaggingClickableSpan(
                 config.color,
                 regex
             ), 0, memberName.length, 0

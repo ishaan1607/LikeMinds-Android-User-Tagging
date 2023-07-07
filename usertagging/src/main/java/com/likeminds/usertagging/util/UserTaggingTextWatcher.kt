@@ -15,7 +15,7 @@ class UserTaggingTextWatcher(
 
     private val handler = WeakReferenceHandler(this)
     private var globalPosition = -1
-    private var spanToRemove: MemberTaggingClickableSpan? = null
+    private var spanToRemove: UserTaggingClickableSpan? = null
 
     @JvmSynthetic
     fun startObserving() {
@@ -39,7 +39,7 @@ class UserTaggingTextWatcher(
             if (backSpace) {
                 //To delete user spannable
                 val message = editText.editableText
-                val spans = message.getSpans(0, position, MemberTaggingClickableSpan::class.java)
+                val spans = message.getSpans(0, position, UserTaggingClickableSpan::class.java)
                 val spanLength = spans.size
                 if (spanLength > 0) {
                     val lastSpan = UserTaggingUtil.getLastSpan(message, spans)

@@ -4,7 +4,7 @@ import android.text.TextPaint
 import android.text.style.ClickableSpan
 import android.view.View
 
-class MemberTaggingClickableSpan(
+class UserTaggingClickableSpan(
     val color: Int,
     val regex: String,
     val underLineText: Boolean = false,

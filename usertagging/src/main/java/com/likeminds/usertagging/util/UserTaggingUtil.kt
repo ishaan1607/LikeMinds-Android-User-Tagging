@@ -70,8 +70,8 @@ object UserTaggingUtil {
     @JvmSynthetic
     fun getLastSpan(
         editable: Editable,
-        spans: Array<MemberTaggingClickableSpan>
-    ): MemberTaggingClickableSpan {
+        spans: Array<UserTaggingClickableSpan>
+    ): UserTaggingClickableSpan {
         if (spans.size == 1) {
             return spans[0]
         }
@@ -81,8 +81,8 @@ object UserTaggingUtil {
     }
 
     @JvmSynthetic
-    fun getSortedSpan(editable: Editable): List<MemberTaggingClickableSpan> {
-        return editable.getSpans(0, editable.length, MemberTaggingClickableSpan::class.java)
+    fun getSortedSpan(editable: Editable): List<UserTaggingClickableSpan> {
+        return editable.getSpans(0, editable.length, UserTaggingClickableSpan::class.java)
             .sortedBy {
                 editable.getSpanStart(it)
             }
