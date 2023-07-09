@@ -31,6 +31,8 @@ internal class TagUserViewHolder(
 
         Glide.with(binding.ivMemberImage)
             .load(user.imageUrl)
+            .placeholder(user.placeholder)
+            .error(user.placeholder)
             .into(binding.ivMemberImage)
         binding.executePendingBindings()
     }

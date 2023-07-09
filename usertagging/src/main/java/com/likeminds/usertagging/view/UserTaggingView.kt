@@ -207,16 +207,32 @@ class UserTaggingView(
         return stringBuilder.toString()
     }
 
-    fun setMembersAndGroup(usersAndGroups: ArrayList<TagUser>) {
+    fun setMembers(users: ArrayList<TagUser>) {
+        val updatedUsers = users.map { user ->
+            val nameDrawable = ImageUtils.getNameDrawable(
+                ImageUtils.SIXTY_PX,
+                user.id.toString(),
+                user.name
+            )
+            user.toBuilder().placeholder(nameDrawable.first).build()
+        }
         tagUsers.clear()
-        tagUsers.addAll(usersAndGroups)
+        tagUsers.addAll(updatedUsers)
         showMemberTaggingList()
     }
 
-    fun addMembers(usersAndGroups: ArrayList<TagUser>) {
-        tagUsers.addAll(usersAndGroups)
+    fun addMembers(users: ArrayList<TagUser>) {
+        val updatedUsers = users.map { user ->
+            val nameDrawable = ImageUtils.getNameDrawable(
+                ImageUtils.SIXTY_PX,
+                user.id.toString(),
+                user.name
+            )
+            user.toBuilder().placeholder(nameDrawable.first).build()
+        }
+        tagUsers.addAll(updatedUsers)
         if (isShowing) {
-            mAdapter.allMembers(usersAndGroups)
+            mAdapter.allMembers(users)
         }
     }
 

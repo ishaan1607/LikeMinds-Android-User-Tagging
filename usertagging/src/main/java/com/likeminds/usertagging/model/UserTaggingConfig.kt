@@ -1,12 +1,13 @@
 package com.likeminds.usertagging.model
 
 import android.widget.EditText
+import androidx.annotation.ColorInt
 import androidx.annotation.FloatRange
 
 class UserTaggingConfig private constructor(
     val editText: EditText,
     @FloatRange(from = 0.0, to = 1.0) val maxHeightInPercentage: Float = 0.4f,
-    val color: Int,
+    @ColorInt val color: Int,
 ) {
     class Builder {
         private lateinit var edittext: EditText
@@ -28,9 +29,6 @@ class UserTaggingConfig private constructor(
         }
 
         fun build(): UserTaggingConfig {
-            if (this::edittext.isInitialized) {
-                throw Error("editText is a required attribute")
-            }
             return UserTaggingConfig(edittext, maxHeightInPercentage, color)
         }
     }

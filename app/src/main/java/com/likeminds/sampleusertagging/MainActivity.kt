@@ -3,16 +3,15 @@ package com.likeminds.sampleusertagging
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import com.likeminds.sampleusertagging.databinding.ActivityMainBinding
 import com.likeminds.usertagging.UserTagging
 import com.likeminds.usertagging.model.TagUser
 import com.likeminds.usertagging.model.UserTaggingConfig
 import com.likeminds.usertagging.util.UserTaggingViewListener
-import com.likeminds.usertagging.view.UserTaggingView
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
-    private lateinit var userTaggingView: UserTaggingView
 
     private val listOfUsers = arrayListOf(
         TagUser.Builder()
@@ -77,6 +76,21 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         initMemberTaggingView()
+
+        binding.apply {
+            fabSend.setOnClickListener {
+                val text = binding.editTextSample.text
+                val updatedText = binding.userTaggingView.replaceSelectedMembers(text).trim()
+
+                tvActualStringHeading.isVisible = true
+                tvDisplayedStringHeading.isVisible = true
+                tvActualString.isVisible = true
+                tvDisplayedString.isVisible = true
+
+                tvActualString.text = updatedText
+                tvDisplayedString.text = text
+            }
+        }
     }
 
     /**
@@ -96,14 +110,15 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun callApi(page: Int, searchName: String) {
-                userTaggingView.setMembersAndGroup(listOfUsers)
+                binding.userTaggingView.setMembers(listOfUsers)
             }
         }
         val config = UserTaggingConfig.Builder()
             .editText(binding.editTextSample)
             .maxHeightInPercentage(0.4f)
-            .color(R.color.vivid_red)
+            .color(R.color.red)
             .build()
+
         UserTagging.initialize(binding.userTaggingView, config, listener)
     }
 }
