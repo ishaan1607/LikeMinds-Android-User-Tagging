@@ -15,16 +15,29 @@ import com.likeminds.usertagging.util.*
 import com.likeminds.usertagging.view.adapter.TagUserAdapter
 import com.likeminds.usertagging.view.adapter.TagUserAdapterClickListener
 
-class UserTaggingSuggestionListView(
-    context: Context,
-    attrs: AttributeSet? = null
-) : ConstraintLayout(context, attrs), TextWatcherListener, TagUserAdapterClickListener {
+class UserTaggingSuggestionListView : ConstraintLayout, TextWatcherListener,
+    TagUserAdapterClickListener {
 
     private var binding = LayoutUserTaggingBinding.inflate(
         LayoutInflater.from(context),
         this,
         true
     )
+    private lateinit var style: UserTaggingItemViewStyle
+
+    constructor(context: Context) : this(context, null, 0)
+    constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
+    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(
+        context,
+        attrs,
+        defStyleAttr
+    ) {
+        initialize(attrs)
+    }
+
+    private fun initialize(attrs: AttributeSet?) {
+        style = UserTaggingItemViewStyle(context, attrs)
+    }
 
     private lateinit var mAdapter: TagUserAdapter
     private lateinit var userTaggingTextWatcher: UserTaggingTextWatcher
@@ -91,7 +104,7 @@ class UserTaggingSuggestionListView(
 
     private fun initializeRecyclerView() {
         //create adapter
-        mAdapter = TagUserAdapter(this)
+        mAdapter = TagUserAdapter(style, this)
 
         //create layout manager
         val linearLayoutManager = LinearLayoutManager(this.context)

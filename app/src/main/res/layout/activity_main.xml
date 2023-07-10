@@ -71,6 +71,18 @@
             app:layout_constraintBottom_toTopOf="@id/edit_text_sample"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            app:userTaggingItemDescriptionTextColor="@color/violet"
+            app:userTaggingItemDescriptionTextFont="@font/montserrat"
+            app:userTaggingItemDescriptionTextSize="20dp"
+            app:userTaggingItemDescriptionTextStyle="italic"
+            app:userTaggingItemDividerColor="@color/scarlet"
+            app:userTaggingItemUserImageBorderColor="@color/black"
+            app:userTaggingItemUserImageBorderWidth="2dp"
+            app:userTaggingItemUserImageCircular="true"
+            app:userTaggingItemUserNameTextColor="@color/orange_yellow"
+            app:userTaggingItemUserNameTextFont="@font/montserrat"
+            app:userTaggingItemUserNameTextSize="30dp"
+            app:userTaggingItemUserNameTextStyle="normal"
             tools:visibility="gone" />
 
         <EditText

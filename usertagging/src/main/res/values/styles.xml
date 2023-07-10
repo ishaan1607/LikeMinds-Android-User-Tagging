@@ -18,6 +18,5 @@
         <item name="userTaggingItemUserImageBorderColor">@color/black</item>
         <item name="userTaggingItemUserImageBorderWidth">0dp</item>
         <item name="userTaggingItemDividerColor">@color/grey_v2</item>
-        <item name="userTaggingItemUserPlacement">left</item>
     </style>
 </resources>

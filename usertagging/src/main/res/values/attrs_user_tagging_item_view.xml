@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <declare-styleable name="UserTaggingItemView">
+    <declare-styleable name="UserTaggingSuggestionListView">
         <!--        User Name Attributes-->
         <!--        Text size of User Name in User tagging Item-->
         <attr name="userTaggingItemUserNameTextSize" format="dimension|reference" />
@@ -24,9 +24,5 @@
         <attr name="userTaggingItemUserImageBorderColor" format="color|reference" />
         <attr name="userTaggingItemUserImageBorderWidth" format="dimension|reference" />
         <attr name="userTaggingItemDividerColor" format="color|reference" />
-        <attr name="userTaggingItemUserPlacement">
-            <flag name="left" value="1" />
-            <flag name="right" value="2" />
-        </attr>
     </declare-styleable>
 </resources>

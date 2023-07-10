@@ -6,8 +6,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.likeminds.usertagging.databinding.ItemTagUserBinding
 import com.likeminds.usertagging.model.TagUser
+import com.likeminds.usertagging.view.UserTaggingItemViewStyle
 
 internal class TagUserAdapter(
+    private val style: UserTaggingItemViewStyle,
     private val memberAdapterClickListener: TagUserAdapterClickListener
 ) : RecyclerView.Adapter<TagUserViewHolder>() {
 
@@ -15,7 +17,7 @@ internal class TagUserAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TagUserViewHolder {
         val binding = ItemTagUserBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return TagUserViewHolder(binding, memberAdapterClickListener)
+        return TagUserViewHolder(binding, style, memberAdapterClickListener)
     }
 
     override fun onBindViewHolder(holder: TagUserViewHolder, position: Int) {

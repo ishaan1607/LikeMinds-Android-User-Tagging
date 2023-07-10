@@ -20,7 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <ImageView
+        <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/iv_member_image"
             android:layout_width="36dp"
             android:layout_height="36dp"
@@ -67,7 +67,7 @@
             tools:text="Notify all community members" />
 
         <View
-            android:id="@+id/v_bottom_line"
+            android:id="@+id/divider"
             android:layout_width="0dp"
             android:layout_height="0.5dp"
             android:background="@color/grey_v2"
