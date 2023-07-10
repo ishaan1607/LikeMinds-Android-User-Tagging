@@ -2,15 +2,15 @@ package com.likeminds.usertagging
 
 import com.likeminds.usertagging.model.UserTaggingConfig
 import com.likeminds.usertagging.util.UserTaggingViewListener
-import com.likeminds.usertagging.view.UserTaggingView
+import com.likeminds.usertagging.view.UserTaggingSuggestionListView
 
 object UserTagging {
     fun initialize(
-        userTaggingView: UserTaggingView,
+        userTaggingSuggestionListView: UserTaggingSuggestionListView,
         config: UserTaggingConfig,
         listener: UserTaggingViewListener
     ) {
-        userTaggingView.initialize(config)
-        userTaggingView.addListener(listener)
+        userTaggingSuggestionListView.initialize(config)
+        userTaggingSuggestionListView.addListener(listener)
     }
 }

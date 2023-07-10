@@ -15,7 +15,7 @@ import com.likeminds.usertagging.util.*
 import com.likeminds.usertagging.view.adapter.TagUserAdapter
 import com.likeminds.usertagging.view.adapter.TagUserAdapterClickListener
 
-class UserTaggingView(
+class UserTaggingSuggestionListView(
     context: Context,
     attrs: AttributeSet? = null
 ) : ConstraintLayout(context, attrs), TextWatcherListener, TagUserAdapterClickListener {

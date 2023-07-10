@@ -63,7 +63,7 @@
             tools:text="Hey, This is actual string!" />
 
 
-        <com.likeminds.usertagging.view.UserTaggingView
+        <com.likeminds.usertagging.view.UserTaggingSuggestionListView
             android:id="@+id/user_tagging_view"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

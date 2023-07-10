@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="UserTaggingUI">
+        <!--        Common Properties-->
+    </style>
+
+    <style name="UserTaggingUI.UserTaggingItemView" parent="UserTaggingUI">
+        <item name="userTaggingItemUserNameTextSize">14sp</item>
+        <item name="userTaggingItemUserNameTextColor">@color/black</item>
+        <item name="userTaggingItemUserNameTextStyle">bold</item>
+        <item name="userTaggingItemUserNameTextFont">@font/roboto</item>
+        <item name="userTaggingItemDescriptionTextSize">12sp</item>
+        <item name="userTaggingItemDescriptionTextColor">@color/brown_grey</item>
+        <item name="userTaggingItemDescriptionTextStyle">normal</item>
+        <item name="userTaggingItemDescriptionTextFont">@font/roboto</item>
+        <item name="userTaggingItemUserImageCircular">false</item>
+        <item name="userTaggingItemUserImageBorderColor">@color/black</item>
+        <item name="userTaggingItemUserImageBorderWidth">0dp</item>
+        <item name="userTaggingItemDividerColor">@color/grey_v2</item>
+        <item name="userTaggingItemUserPlacement">left</item>
+    </style>
+</resources>
