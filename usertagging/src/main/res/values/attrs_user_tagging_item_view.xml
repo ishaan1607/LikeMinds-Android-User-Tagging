@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="UserTaggingSuggestionListView">
+        <!--        User Name Attributes-->
+        <!--        Text size of User Name in User tagging Item-->
+        <attr name="userTaggingItemUserNameTextSize" format="dimension|reference" />
+        <attr name="userTaggingItemUserNameTextColor" format="color|reference" />
+        <attr name="userTaggingItemUserNameTextStyle">
+            <flag name="normal" value="0" />
+            <flag name="bold" value="1" />
+            <flag name="italic" value="2" />
+        </attr>
+        <attr name="userTaggingItemUserNameTextFont" format="reference" />
+
+        <attr name="userTaggingItemDescriptionTextSize" format="dimension|reference" />
+        <attr name="userTaggingItemDescriptionTextColor" format="color|reference" />
+        <attr name="userTaggingItemDescriptionTextStyle">
+            <flag name="normal" value="0" />
+            <flag name="bold" value="1" />
+            <flag name="italic" value="2" />
+        </attr>
+        <attr name="userTaggingItemDescriptionTextFont" format="reference" />
+        <attr name="userTaggingItemUserImageCircular" format="boolean" />
+        <attr name="userTaggingItemUserImageBorderColor" format="color|reference" />
+        <attr name="userTaggingItemUserImageBorderWidth" format="dimension|reference" />
+        <attr name="userTaggingItemDividerColor" format="color|reference" />
+    </declare-styleable>
+</resources>
