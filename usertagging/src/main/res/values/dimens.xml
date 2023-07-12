@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="user_tagging_ui_user_name_size">14sp</dimen>
+    <dimen name="user_tagging_ui_description_size">12sp</dimen>
+    <dimen name="user_tagging_ui_circular_image">18dp</dimen>
+    <dimen name="user_tagging_ui_square_image">0dp</dimen>
+</resources>
