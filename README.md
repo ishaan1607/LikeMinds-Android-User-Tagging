@@ -22,7 +22,7 @@ users within an app, enabling features such as mentions, notifications, and user
 
 To start using the Android User Tagging Library in your project, follow these steps:
 
-- Clone this repository in you project.
+- Clone this repository in your project.
 
 - Add the UserTaggingSuggestionListView in your xml file.
 

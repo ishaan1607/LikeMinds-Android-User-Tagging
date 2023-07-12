@@ -7,6 +7,9 @@ import com.likeminds.usertagging.util.generator.TextDrawable
 object ImageUtils {
     val SIXTY_PX = dpToPx(60)
 
+    /**
+     * To create a drawable with Initials of Name
+     */
     fun getNameDrawable(
         size: Int,
         id: String?,
@@ -35,6 +38,7 @@ object ImageUtils {
         return Pair(drawable, color)
     }
 
+    //returns initials of the name
     private fun getNameInitial(
         userName: String?
     ): String {

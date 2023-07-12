@@ -9,6 +9,7 @@ import androidx.core.content.res.ResourcesCompat
 object StyleUtils {
     private val resourceMap: MutableMap<Int, Typeface> = HashMap()
 
+    //returns Typeface of the font by taking fontResource
     fun getFont(context: Context, @FontRes fontRes: Int): Typeface? {
         if (fontRes in resourceMap) {
             return resourceMap[fontRes]
@@ -19,6 +20,7 @@ object StyleUtils {
         return typeface
     }
 
+    //returns the typeface by loading with context
     private fun safeLoadTypeface(context: Context, @FontRes fontRes: Int): Typeface? {
         return try {
             ResourcesCompat.getFont(context, fontRes)

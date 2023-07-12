@@ -74,22 +74,22 @@ class UserTaggingSuggestionListView : ConstraintLayout, TextWatcherListener,
         //Set max height
         val heightInPx = UserTaggingUtil.getMaxHeight(context, config.maxHeightInPercentage)
         maxHeight = heightInPx
-        val lp = binding.recyclerView.layoutParams as LayoutParams
+        val lp = binding.rvUsers.layoutParams as LayoutParams
         lp.matchConstraintMaxHeight = heightInPx
-        binding.recyclerView.layoutParams = lp
+        binding.rvUsers.layoutParams = lp
 
         //Set the theme
         binding.constraintLayout.setBackgroundResource(R.drawable.background_container)
     }
 
-    fun reSetMaxHeight(px: Int) {
+    fun resetMaxHeight(px: Int) {
         if (px >= maxHeight || px <= 0) {
             return
         }
         maxHeight = px
-        val lp = binding.recyclerView.layoutParams as LayoutParams
+        val lp = binding.rvUsers.layoutParams as LayoutParams
         lp.matchConstraintMaxHeight = px
-        binding.recyclerView.layoutParams = lp
+        binding.rvUsers.layoutParams = lp
     }
 
     fun addListener(userTaggingViewListener: UserTaggingViewListener) {
@@ -119,7 +119,7 @@ class UserTaggingSuggestionListView : ConstraintLayout, TextWatcherListener,
         }
         scrollListener.resetData()
 
-        binding.recyclerView.apply {
+        binding.rvUsers.apply {
             adapter = mAdapter
             layoutManager = linearLayoutManager
             addOnScrollListener(scrollListener)
@@ -133,12 +133,14 @@ class UserTaggingSuggestionListView : ConstraintLayout, TextWatcherListener,
         }
     }
 
+    //get id of the already selected member
     private fun getMemberFromSelectedList(id: Int): TagUser? {
         return selectedUsers.firstOrNull { member ->
             member.id == id
         }
     }
 
+    //display the suggestion list
     private fun showMemberTaggingList() {
         if (tagUsers.isNotEmpty()) {
             userTaggingViewListener?.onShow()
@@ -198,6 +200,7 @@ class UserTaggingSuggestionListView : ConstraintLayout, TextWatcherListener,
         hide()
     }
 
+    //replace the selected members span with the actual route strings.
     fun replaceSelectedMembers(editable: Editable?): String {
         if (editable == null) {
             return ""
@@ -220,6 +223,7 @@ class UserTaggingSuggestionListView : ConstraintLayout, TextWatcherListener,
         return stringBuilder.toString()
     }
 
+    //use this function to set the initial list of users
     fun setMembers(users: ArrayList<TagUser>) {
         val updatedUsers = users.map { user ->
             val nameDrawable = ImageUtils.getNameDrawable(
@@ -234,6 +238,7 @@ class UserTaggingSuggestionListView : ConstraintLayout, TextWatcherListener,
         showMemberTaggingList()
     }
 
+    //use this function to add the users in the existing list
     fun addMembers(users: ArrayList<TagUser>) {
         val updatedUsers = users.map { user ->
             val nameDrawable = ImageUtils.getNameDrawable(

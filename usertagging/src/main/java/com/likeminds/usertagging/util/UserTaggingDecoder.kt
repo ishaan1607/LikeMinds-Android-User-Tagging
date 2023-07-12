@@ -3,6 +3,9 @@ package com.likeminds.usertagging.util
 import android.net.Uri
 
 object UserTaggingDecoder {
+    /**
+     * [REGEX_USER_TAGGING] is to encode/decode the route to be used for Tagging.
+     * */
     private val REGEX_USER_TAGGING = Regex("<<([^<>]+\\|route://\\S+)>>")
 
     fun getRouteFromRegex(text: String?): Uri? {
