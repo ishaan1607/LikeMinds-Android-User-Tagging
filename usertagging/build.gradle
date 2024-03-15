@@ -4,6 +4,14 @@ plugins {
     id 'kotlin-kapt'
 }
 
+ext {
+    PUBLISH_GROUP_ID = 'community.likeminds'
+    PUBLISH_VERSION = "$versions.library_version_major.$versions.library_version_minor.$versions.library_version_patch"
+    PUBLISH_ARTIFACT_ID = 'likeminds-user-tagging'
+}
+
+apply from: '../publish-helper.gradle'
+
 android {
     namespace 'com.likeminds.usertagging'
     compileSdk 33
