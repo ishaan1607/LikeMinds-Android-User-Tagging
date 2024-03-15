@@ -6,7 +6,7 @@ plugins {
 
 ext {
     PUBLISH_GROUP_ID = 'community.likeminds'
-    PUBLISH_VERSION = "$versions.sdk_version_major.$versions.sdk_version_minor.$versions.sdk_version_patch"
+    PUBLISH_VERSION = "$versions.library_version_major.$versions.library_version_minor.$versions.library_version_patch"
     PUBLISH_ARTIFACT_ID = 'likeminds-user-tagging'
 }
 

@@ -55,8 +55,8 @@ afterEvaluate {
                 artifactId PUBLISH_ARTIFACT_ID
                 pom {
                     name = PUBLISH_ARTIFACT_ID
-                    description = 'LikeMinds Feed official Android SDK'
-                    url = 'https://github.com/NateshR/LikeMinds-Android-Feed-SDK'
+                    description = 'LikeMinds Android User Tagging Library'
+                    url = 'https://github.com/LikeMindsCommunity/LikeMinds-Android-User-Tagging'
                     licenses {
                         license {
                             name = 'LikeMinds License'
@@ -64,9 +64,9 @@ afterEvaluate {
                         }
                     }
                     scm {
-                        connection = 'scm:git:github.com/LikeMindsCommunity/LikeMinds-Android-Feed-SDK.git'
-                        developerConnection = 'scm:git:ssh://LikeMindsCommunity/LikeMinds-Android-Feed-SDK.git'
-                        url = 'https://github.com/LikeMindsCommunity/LikeMinds-Android-Feed-SDK/tree/master'
+                        connection = 'scm:git:github.com/LikeMindsCommunity/LikeMinds-Android-User-Tagging.git'
+                        developerConnection = 'scm:git:ssh://LikeMindsCommunity/LikeMinds-Android-User-Tagging.git'
+                        url = 'https://github.com/LikeMindsCommunity/LikeMinds-Android-User-Tagging/tree/master'
                     }
                     developers {
                         developer {
