@@ -179,9 +179,16 @@ class UserTaggingSuggestionListView : ConstraintLayout, TextWatcherListener,
     }
 
     override fun onUserTagged(user: TagUser) {
-        val memberName = SpannableString(user.name)
+        //check @ for this symbol
+        val updatedName = if (config.hasAtRateSymbol) {
+            "@${user.name}"
+        } else {
+            user.name
+        }
 
-        val regex = "<<${user.name}|route://user/${user.id}>>"
+        val memberName = SpannableString(updatedName)
+
+        val regex = "<<${user.name}|route://user_profile/${user.uuid}>>"
 
         //set span
         memberName.setSpan(

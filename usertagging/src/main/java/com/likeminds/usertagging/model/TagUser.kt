@@ -8,7 +8,8 @@ class TagUser private constructor(
     val description: String?,
     val id: Int,
     val isLastItem: Boolean,
-    val placeholder: Drawable?
+    val placeholder: Drawable?,
+    val uuid: String
 ) {
     class Builder {
         private var name: String = ""
@@ -17,6 +18,7 @@ class TagUser private constructor(
         private var id: Int = 0
         private var isLastItem: Boolean = false
         private var placeholder: Drawable? = null
+        private var uuid: String = ""
 
         fun name(name: String) = apply { this.name = name }
         fun imageUrl(imageUrl: String) = apply { this.imageUrl = imageUrl }
@@ -24,6 +26,7 @@ class TagUser private constructor(
         fun isLastItem(isLastItem: Boolean) = apply { this.isLastItem = isLastItem }
         fun description(description: String?) = apply { this.description = description }
         fun placeholder(placeholder: Drawable?) = apply { this.placeholder = placeholder }
+        fun uuid(uuid: String) = apply { this.uuid = uuid }
 
         fun build() = TagUser(
             name,
@@ -31,7 +34,8 @@ class TagUser private constructor(
             description,
             id,
             isLastItem,
-            placeholder
+            placeholder,
+            uuid
         )
     }
 
@@ -42,5 +46,6 @@ class TagUser private constructor(
             .description(description)
             .isLastItem(isLastItem)
             .placeholder(placeholder)
+            .uuid(uuid)
     }
 }
