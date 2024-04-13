@@ -6,6 +6,7 @@ import android.text.SpannableString
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.likeminds.usertagging.R
 import com.likeminds.usertagging.databinding.LayoutUserTaggingBinding
@@ -193,7 +194,7 @@ class UserTaggingSuggestionListView : ConstraintLayout, TextWatcherListener,
         //set span
         memberName.setSpan(
             UserTaggingClickableSpan(
-                config.color,
+                ContextCompat.getColor(context, config.color),
                 regex
             ), 0, memberName.length, 0
         )
