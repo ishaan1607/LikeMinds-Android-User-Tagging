@@ -161,4 +161,31 @@ object UserTaggingDecoder {
             )
         }
     }
+
+    /**
+     * Decodes the given [text], searches for all tagged members and returns a list of Pair
+     * containing member id and member name sequentially.
+     * @return List<Pair<Member Id, Member Name>>
+     */
+    @JvmStatic
+    fun decodeAndReturnAllTaggedMembers(text: String?): List<Pair<String, String>> {
+        if (text.isNullOrEmpty()) {
+            return emptyList()
+        }
+        val matches = REGEX_USER_TAGGING.findAll(text, 0)
+        if (matches.count() == 0) {
+            return emptyList()
+        }
+        val result = mutableListOf<Pair<String, String>>()
+        matches.forEach { matchResult ->
+            val value = matchResult.value
+            val tag = value.substring(2, value.length - 2).split("\\|".toRegex())
+            val memberName = "@${tag[0]}"
+            val memberRoute = tag[1]
+            val routeSplits = memberRoute.split("/".toRegex())
+            val memberId = routeSplits[routeSplits.size - 1]
+            result.add(Pair(memberId, memberName))
+        }
+        return result
+    }
 }
