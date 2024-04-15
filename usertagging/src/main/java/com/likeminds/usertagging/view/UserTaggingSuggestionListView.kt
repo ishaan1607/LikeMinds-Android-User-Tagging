@@ -144,15 +144,7 @@ class UserTaggingSuggestionListView : ConstraintLayout, TextWatcherListener,
     private fun showMemberTaggingList() {
         if (tagUsers.isNotEmpty()) {
             userTaggingViewListener?.onShow()
-            val lastItem = tagUsers.lastOrNull()
-            mAdapter.setMembers(tagUsers.map {
-                if (it.id == lastItem?.id) {
-                    //if last item hide bottom line in item view
-                    it.toBuilder().isLastItem(true).build()
-                } else {
-                    it
-                }
-            })
+            mAdapter.setMembers(tagUsers)
         } else {
             hide()
         }
@@ -257,7 +249,7 @@ class UserTaggingSuggestionListView : ConstraintLayout, TextWatcherListener,
         }
         tagUsers.addAll(updatedUsers)
         if (isShowing) {
-            mAdapter.allMembers(users)
+            mAdapter.allMembers(updatedUsers)
         }
     }
 

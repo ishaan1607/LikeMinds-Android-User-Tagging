@@ -38,7 +38,10 @@ class MainActivity : AppCompatActivity() {
             .name("Thor")
             .description("@thorOdinson")
             .id(1007)
-            .build(),
+            .build()
+    )
+
+    private val secondPage = arrayListOf(
         TagUser.Builder()
             .name("Black Widow")
             .description("@natashaRomanOff")
@@ -63,7 +66,7 @@ class MainActivity : AppCompatActivity() {
             .name("Vision")
             .description("@vision")
             .id(1012)
-            .build(),
+            .build()
     )
 
     companion object {
@@ -110,7 +113,17 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun callApi(page: Int, searchName: String) {
-                binding.userTaggingView.setMembers(listOfUsers)
+                Log.d(
+                    "PUI", """
+                    page:$page
+                    searchName: $searchName                    
+                """.trimIndent()
+                )
+                if (page == 1) {
+                    binding.userTaggingView.setMembers(listOfUsers)
+                } else {
+                    binding.userTaggingView.addMembers(secondPage)
+                }
             }
         }
         val config = UserTaggingConfig.Builder()
