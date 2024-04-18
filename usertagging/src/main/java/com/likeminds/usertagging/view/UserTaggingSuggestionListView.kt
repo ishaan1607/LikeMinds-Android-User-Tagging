@@ -6,6 +6,7 @@ import android.text.SpannableString
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.likeminds.usertagging.R
 import com.likeminds.usertagging.databinding.LayoutUserTaggingBinding
@@ -144,15 +145,7 @@ class UserTaggingSuggestionListView : ConstraintLayout, TextWatcherListener,
     private fun showMemberTaggingList() {
         if (tagUsers.isNotEmpty()) {
             userTaggingViewListener?.onShow()
-            val lastItem = tagUsers.lastOrNull()
-            mAdapter.setMembers(tagUsers.map {
-                if (it.id == lastItem?.id) {
-                    //if last item hide bottom line in item view
-                    it.toBuilder().isLastItem(true).build()
-                } else {
-                    it
-                }
-            })
+            mAdapter.setMembers(tagUsers)
         } else {
             hide()
         }
@@ -179,14 +172,21 @@ class UserTaggingSuggestionListView : ConstraintLayout, TextWatcherListener,
     }
 
     override fun onUserTagged(user: TagUser) {
-        val memberName = SpannableString(user.name)
+        //check @ for this symbol
+        val updatedName = if (config.hasAtRateSymbol) {
+            "@${user.name}"
+        } else {
+            user.name
+        }
 
-        val regex = "<<${user.name}|route://user/${user.id}>>"
+        val memberName = SpannableString(updatedName)
+
+        val regex = "<<${user.name}|route://user_profile/${user.uuid}>>"
 
         //set span
         memberName.setSpan(
             UserTaggingClickableSpan(
-                config.color,
+                ContextCompat.getColor(context, config.color),
                 regex
             ), 0, memberName.length, 0
         )
@@ -250,7 +250,7 @@ class UserTaggingSuggestionListView : ConstraintLayout, TextWatcherListener,
         }
         tagUsers.addAll(updatedUsers)
         if (isShowing) {
-            mAdapter.allMembers(users)
+            mAdapter.allMembers(updatedUsers)
         }
     }
 

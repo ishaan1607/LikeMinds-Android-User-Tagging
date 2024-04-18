@@ -3,6 +3,7 @@ package com.likeminds.usertagging.util
 import android.text.TextPaint
 import android.text.style.ClickableSpan
 import android.view.View
+import androidx.annotation.ColorRes
 
 class UserTaggingClickableSpan(
     val color: Int,
