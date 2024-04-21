@@ -4,6 +4,6 @@ versions.min_sdk = 21
 versions.target_sdk = 33
 versions.library_version_major = '1'
 versions.library_version_minor = '0'
-versions.library_version_patch = '2'
+versions.library_version_patch = '4'
 versions.library_version_code = 3
 ext.versions = versions

@@ -8,34 +8,64 @@ on:
 permissions: write-all
 
 jobs:
-  create_tag:
-    name: Create Git Tag
+  publish:
+    name: Publish to Maven Central
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
+      - name: Checkout the repository
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
+
       - name: Check for version changes
         run: |
           # Fetch all tags from the remote repository
           git fetch --tags
-
+          
           # Get the previous version from the last release tag
           export previous_version=$(git describe --tags --abbrev=0)
-
+          
           # Get the current version from root-dependencies.gradle
           export current_version=$(
           grep 'versions.library_version_major' likeminds-user-tagging-root-dependencies.gradle | awk -F "'" '{print $2}' | tr -d '\n'; \
           grep 'versions.library_version_minor' likeminds-user-tagging-root-dependencies.gradle | awk -F "'" '{print "."$2}' | tr -d '\n'; \
           grep 'versions.library_version_patch' likeminds-user-tagging-root-dependencies.gradle | awk -F "'" '{print "."$2}')
-  
+          
           if [[ "$previous_version" != "v$current_version" ]]; then
           echo "Version has changed from $previous_version to v$current_version."
           else
           echo "Version has not changed."
           exit 1
           fi
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Validate Gradle wrapper
+        uses: gradle/wrapper-validation-action@ccb4328a959376b642e027874838f60f8e596de3
+
+      - name: Maven Central Publish
+        env:
+          KEY_ID: ${{ secrets.KEY_ID }}
+          PASSWORD: ${{ secrets.PASSWORD }}
+          KEY: ${{ secrets.KEY }}
+          OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }}
+          OSSRH_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}
+          SONATYPE_STAGING_PROFILE_ID: ${{ secrets.SONATYPE_STAGING_PROFILE_ID }}
+        run: ./gradlew publishDebugPublicationToMavenLocal --max-workers 1
+
+  create_tag:
+    name: Create Git Tag
+    needs: publish
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
       - name: Push Git Tag
         run: |
           # Git login
